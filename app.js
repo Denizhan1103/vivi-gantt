@@ -4,15 +4,15 @@ import AgnosticChart from "./dist/App.js"
 
 const navbarData = [{
         id: 1,
-        name: 'Denizhan'
+        name: 'Denizhanssssssssssssssssssssssssssssssssssss'
     },
     {
         id: 2,
-        name: 'Furkan'
+        name: 'Vildan'
     },
     {
         id: 3,
-        name: 'Aloo'
+        name: 'Furkan'
     }
 ]
 

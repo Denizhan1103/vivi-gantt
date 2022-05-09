@@ -26,6 +26,14 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.chart__navbar-item {
+  /* resize: horizontal;
+  overflow: auto; */
+  word-break: break-all;
+  min-height: 40px;
+  height: initial !important; /* TODO: Fix Me */
+}
+
 .chart__navbar-header {
   height: 150px; /* TODO: Fix me */
 }
