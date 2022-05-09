@@ -1,0 +1,27 @@
+.chart {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background-color: #ffffff;
+  justify-content: space-between;
+}
+
+.chart__navbar {
+  width: 160px;
+  border-right: 2px solid rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.chart__navbar-item {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  height: 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chart__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
