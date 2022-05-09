@@ -10,7 +10,10 @@ export default class GanntDom {
     return `
         <div class="chart">
             <div class="chart__navbar">
-                ${this.createNavbarDom(navbarData)}
+                <div class="chart__navbar-header">Label</div>
+                <div class="chart__navbar-content">
+                    ${this.createNavbarDom(navbarData)}
+                </div>
             </div>
             <div class="chart__content">
                 <div class="chart__content-header"></div>

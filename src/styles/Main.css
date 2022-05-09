@@ -9,15 +9,25 @@
 .chart__navbar {
   width: 160px;
   border-right: 2px solid rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.chart__navbar-content {
   overflow-y: auto;
 }
 
+.chart__navbar-header,
 .chart__navbar-item {
   display: flex;
   align-items: center;
   padding: 0 8px;
   height: 40px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chart__navbar-header {
+  height: 150px; /* TODO: Fix me */
 }
 
 .chart__content {
