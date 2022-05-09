@@ -16,11 +16,24 @@ export default class GanntDom {
                 </div>
             </div>
             <div class="chart__content">
-                <div class="chart__content-header"></div>
+                <div class="chart__content-header">
+                    ${this.createContentHeader()}
+                </div>
                 <div class="chart__content-data"></div>
             </div>
         </div>
     `;
+  }
+
+  public createContentHeader(): string {
+    let createdHeaderDom = ``;
+    const date = new Date();
+    for (let x = 1; x <= 30; x++) {
+      createdHeaderDom += `
+            <div class="header__item">${x}/${date.getUTCMonth()}/${date.getFullYear()}</div>
+        `;
+    }
+    return createdHeaderDom;
   }
 
   public createNavbarDom(navbarData: NavbarItem[]): string {
@@ -29,6 +42,5 @@ export default class GanntDom {
       createdHeaderDom += `<div id="${navbarItem.id}" class="chart__navbar-item">${navbarItem.name}</div>`;
     });
     return createdHeaderDom;
-  }
   }
 }
