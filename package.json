@@ -1,0 +1,24 @@
+{
+  "name": "agnostic-gannt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "build": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Denizhan1103/agnostis-gannt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Denizhan1103/agnostis-gannt/issues"
+  },
+  "homepage": "https://github.com/Denizhan1103/agnostis-gannt#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.31",
+    "typescript": "^4.6.4"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "strict": "true",
+  "compileOnSave": true,
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "strict": true,
+    "alwaysStrict": true,
+    "target": "ES5",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "esModuleInterop": true
+  }
+}
