@@ -1,3 +1,9 @@
+import {
+  convertDigitToMonth,
+  digitOneToTwo,
+  getMonthLastDay,
+} from "./Helper.js";
+
 interface NavbarItem {
   id: number;
   name: string;
@@ -10,6 +16,7 @@ export default class GanntDom {
     return `
         <div class="chart">
             <div class="chart__navbar">
+                <div class="chart__navbar-resizer"></div>
                 <div class="chart__navbar-header">Label</div>
                 <div class="chart__navbar-content">
                     ${this.createNavbarDom(navbarData)}
@@ -28,9 +35,13 @@ export default class GanntDom {
   public createContentHeader(): string {
     let createdHeaderDom = ``;
     const date = new Date();
-    for (let x = 1; x <= 30; x++) {
+    const lastDayOfMonth = getMonthLastDay(date.getMonth());
+
+    for (let x = 1; x <= lastDayOfMonth; x++) {
       createdHeaderDom += `
-            <div class="header__item">${x}/${date.getUTCMonth()}/${date.getFullYear()}</div>
+            <div class="header__item">${digitOneToTwo(x)}/${convertDigitToMonth(
+        date.getUTCMonth()
+      )}/${date.getFullYear()}</div>
         `;
     }
     return createdHeaderDom;

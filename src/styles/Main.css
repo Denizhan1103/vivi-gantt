@@ -11,6 +11,17 @@
   border-right: 2px solid rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.chart__navbar-resizer {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  /* background: rgba(0,0,0,0.1); */
+  cursor: e-resize;
+  top: 0;
+  right: 0;
 }
 
 .chart__navbar-content {

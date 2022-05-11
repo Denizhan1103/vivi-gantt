@@ -1,4 +1,5 @@
 import GanntDom from "./Dom.js";
+import Resizable from "./Resizable.js";
 
 interface NavbarData {
   id: number;
@@ -17,6 +18,6 @@ export default class GanntChart {
   constructor({ target, data }: Options) {
     const ganntDom = new GanntDom();
     target.innerHTML = ganntDom.createDomContent(data.navbar);
+    Resizable.addListener(".chart__navbar-resizer");
   }
 }
-("");
