@@ -1,0 +1,69 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  width: 1000px;
+  height: 600px;
+}
+
+.gannt__scroll {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.gannt {
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: repeat(31, 220px);
+  grid-template-rows: repeat(160, 50px);
+}
+
+.item {
+  display: grid;
+  place-items: center;
+}
+
+.label {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  top: 0;
+  background-color: aqua;
+}
+
+.header {
+  grid-row: 1 / 1;
+  grid-column: 2 / span 31;
+  background: lightblue;
+  display: grid;
+  position: sticky;
+  top: 0;
+  grid-template-columns: repeat(31, 1fr);
+}
+
+.navbar {
+  grid-row: 2 / span 160;
+  grid-column: 1 / 1;
+  display: grid;
+  grid-template-rows: repeat(159, 50px);
+  background: aquamarine;
+  position: sticky;
+  left: 0;
+}

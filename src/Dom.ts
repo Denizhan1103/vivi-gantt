@@ -10,7 +10,10 @@ interface NavbarItem {
 }
 
 export default class GanntDom {
-  constructor() {}
+  currentMonth: number;
+  constructor() {
+    this.currentMonth = new Date().getMonth();
+  }
 
   public createDomContent(navbarData: NavbarItem[]): string {
     return `
@@ -25,6 +28,10 @@ export default class GanntDom {
             <div class="chart__content">
                 <div class="chart__content-header">
                     ${this.createContentHeader()}
+                    <div class="header__btns">
+                        <div class="header__btns-btn">Prev</div>
+                        <div class="header__btns-btn">Next</div>
+                    </div>
                 </div>
                 <div class="chart__content-data"></div>
             </div>
@@ -34,7 +41,7 @@ export default class GanntDom {
 
   public createContentHeader(): string {
     let createdHeaderDom = ``;
-    const date = new Date();
+    const date = new Date(new Date().setMonth(this.currentMonth));
     const lastDayOfMonth = getMonthLastDay(date.getMonth());
 
     for (let x = 1; x <= lastDayOfMonth; x++) {
@@ -46,6 +53,8 @@ export default class GanntDom {
     }
     return createdHeaderDom;
   }
+
+  public createContent(): {};
 
   public createNavbarDom(navbarData: NavbarItem[]): string {
     let createdHeaderDom = ``;
