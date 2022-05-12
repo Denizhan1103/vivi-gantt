@@ -1,33 +1,27 @@
-const gant = document.querySelector(".chart")
-
-import AgnosticChart from "./dist/App.js"
-
-const navbarData = [{
-        id: 1,
-        name: 'Denizhanssssssssssssssssssssssssssssssssssss'
-    },
-    {
-        id: 2,
-        name: 'Vildan'
-    },
-    {
-        id: 3,
-        name: 'Furkan'
-    }
-]
-
-for (let x = 0; x < 30; x++) {
-    navbarData.push({
-        id: Math.random() * 100,
-        name: 'Aloo'
-    })
-}
+const gannt = document.querySelector(".chart")
 
 const options = {
-    target: gant,
+    labelName: 'Label',
+    ganntType: 'Month',
+    itemWidth: 240,
+    itemHeight: 90,
+    headerHeight: 50,
+    labelBgColor: 'aqua',
+    navbarBgColor: 'aquamarine',
+    headerBgColor: 'lightblue',
     data: {
-        navbar: navbarData
+        navbar: [{
+                id: 1,
+                name: 'Deniz'
+            },
+            {
+                id: 2,
+                name: 'Ufaklık'
+            },
+            {
+                id: 3,
+                name: 'Furkan'
+            },
+        ],
     }
 }
-
-const chart = new AgnosticChart(options)

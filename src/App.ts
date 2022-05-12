@@ -1,23 +1,27 @@
 import GanntDom from "./Dom.js";
 import Resizable from "./Resizable.js";
 
-interface NavbarData {
-  id: number;
-  name: string;
+enum GanntType {
+  month = "month",
+}
+
+interface Data {
+  navbar: { id: number; name: string }[];
+  content?: { id: number; referenceId: number; name: string }[];
 }
 
 interface Options {
-  target: HTMLDivElement;
-  data: {
-    navbar: NavbarData[];
-    content?: {};
-  };
+  labelName?: string;
+  ganntType?: GanntType;
+  itemWidth?: number;
+  itemHeight?: number;
+  headerHeight?: number;
+  labelBgColor?: string;
+  navbarBgColor?: string;
+  headerBgColor?: string;
+  data: Data;
 }
 
 export default class GanntChart {
-  constructor({ target, data }: Options) {
-    const ganntDom = new GanntDom();
-    target.innerHTML = ganntDom.createDomContent(data.navbar);
-    Resizable.addListener(".chart__navbar-resizer");
-  }
+  constructor(target: HTMLElement, Options: Options) {}
 }
