@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.container {
+  width: 1000px;
+  height: 460px;
+  border-radius: 6px;
+  padding: 4px;
+  background-color: rgba(255, 0, 0, 0.2);
+}

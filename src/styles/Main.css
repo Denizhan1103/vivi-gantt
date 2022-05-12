@@ -1,0 +1,115 @@
+.chart {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background-color: #ffffff;
+  justify-content: space-between;
+}
+
+.chart__navbar {
+  width: 160px;
+  border-right: 2px solid rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chart__navbar-resizer {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  /* background: rgba(0,0,0,0.1); */
+  cursor: e-resize;
+  top: 0;
+  right: 0;
+}
+
+.chart__navbar-content {
+  overflow-y: auto;
+}
+
+.chart__navbar-header,
+.chart__navbar-item {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  height: 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chart__navbar-item {
+  /* resize: horizontal;
+  overflow: auto; */
+  word-break: break-all;
+  min-height: 40px;
+  height: initial !important; /* TODO: Fix Me */
+}
+
+.chart__navbar-header {
+  height: 150px; /* TODO: Fix me */
+}
+
+.chart__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.chart__content-header {
+  display: -webkit-box;
+  position: relative;
+}
+
+.chart__content-data {
+  flex: 1;
+}
+
+.header__item {
+  height: 100%;
+  width: 240px;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 8px;
+  height: 46px;
+  cursor: pointer;
+  transition: 0.3s ease background-color;
+}
+
+.header__item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header__item:last-child {
+  border-right: 1px solid #ffffff;
+}
+
+.header__btns {
+  position: absolute;
+  right: 6px;
+  bottom: -18px;
+  display: flex;
+  gap: 6px;
+}
+
+.header__btns-btn {
+  padding: 0 6px;
+  height: 16px;
+  background: rgb(100, 149, 237);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s ease background;
+}
+
+.header__btns-btn:hover {
+  background: rgb(86, 128, 207);
+}
