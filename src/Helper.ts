@@ -1,3 +1,11 @@
+interface CreateDivElement {
+  classList?: string | string[];
+  textContent?: string;
+  bgColor?: string;
+  width?: number;
+  height?: number;
+}
+
 const defaultMonths: string[] = [
   "Jan",
   "Feb",
@@ -30,3 +38,13 @@ export const getMonthLastDay = (month: number): number => {
   const dayAsString = String(new Date(2008, month + 1, 0)).slice(8, 10);
   return Number(dayAsString);
 };
+
+export const createDomElement = ({ classList, textContent, bgColor, width, height }: CreateDivElement): HTMLDivElement => {
+  const element = document.createElement('div')
+  if (classList) Array.isArray(classList) ? element.classList.add(...classList) : element.classList.add(classList)
+  if (textContent) element.textContent = textContent
+  if (bgColor) element.style.backgroundColor = bgColor
+  if (width) element.style.width = `${width}px`
+  if (height) element.style.height = `${height}px`
+  return element
+}

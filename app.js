@@ -1,4 +1,6 @@
-const gannt = document.querySelector(".chart")
+import Gannt from "./dist/App.js"
+
+const container = document.querySelector(".container")
 
 const options = {
     labelName: 'Label',
@@ -6,7 +8,7 @@ const options = {
     itemWidth: 240,
     itemHeight: 90,
     headerHeight: 50,
-    labelBgColor: 'aqua',
+    labelBgColor: 'green',
     navbarBgColor: 'aquamarine',
     headerBgColor: 'lightblue',
     data: {
@@ -23,5 +25,25 @@ const options = {
                 name: 'Furkan'
             },
         ],
+        content: [{
+            id: 1,
+            referanceId: 1,
+            name: 'Task1',
+            dateStart: new Date(),
+            dateEnd: new Date().setDate(new Date().getDate() + 1)
+        }]
     }
 }
+
+const seedNavbar = () => {
+    for (let x = 0; x < 5; x++) {
+        options.data.navbar.push({
+            id: Math.random() * 100,
+            name: 'Alooo'
+        })
+    }
+}
+
+seedNavbar()
+
+new Gannt(container, options)

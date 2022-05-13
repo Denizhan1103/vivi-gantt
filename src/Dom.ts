@@ -54,8 +54,6 @@ export default class GanntDom {
     return createdHeaderDom;
   }
 
-  public createContent(): {};
-
   public createNavbarDom(navbarData: NavbarItem[]): string {
     let createdHeaderDom = ``;
     navbarData.forEach((navbarItem: NavbarItem) => {
