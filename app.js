@@ -27,10 +27,10 @@ const options = {
         ],
         content: [{
             id: 1,
-            referanceId: 1,
+            referenceId: 1,
             name: 'Task1',
             dateStart: new Date(),
-            dateEnd: new Date().setDate(new Date().getDate() + 1)
+            dateEnd: new Date(new Date().setHours(new Date().getHours() + 24))
         }]
     }
 }
