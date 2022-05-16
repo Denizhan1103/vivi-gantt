@@ -1,4 +1,7 @@
 import Gannt from "./dist/App.js"
+import {
+    seedGantt
+} from "./seeder.js"
 
 const container = document.querySelector(".container")
 
@@ -26,12 +29,20 @@ const options = {
             },
         ],
         content: [{
-            id: 1,
-            referenceId: 1,
-            name: 'Task1',
-            dateStart: new Date(),
-            dateEnd: new Date(new Date().setHours(new Date().getHours() + 24))
-        }]
+                id: 1,
+                referenceId: 1,
+                name: 'Task1',
+                dateStart: new Date(),
+                dateEnd: new Date(new Date().setHours(new Date().getHours() + 24))
+            },
+            {
+                id: 2,
+                referenceId: 1,
+                name: 'Task1',
+                dateStart: new Date(),
+                dateEnd: new Date(new Date().setHours(new Date().getHours() + 24))
+            }
+        ]
     }
 }
 
@@ -47,3 +58,9 @@ const seedNavbar = () => {
 seedNavbar()
 
 new Gannt(container, options)
+
+console.log('--------------')
+console.log(seedGantt({
+    navbarCount: 10,
+    contentCount: 50
+}))

@@ -116,7 +116,7 @@ export default class GanntChart {
 
     for (let eachNavbarItem = 0; eachNavbarItem < navbarLength; eachNavbarItem++) {
       for (let eachDay = 0; eachDay < daysOnCurrentMonth; eachDay++) {
-        const createdDayDom = createDomElement({ classList: ['item', 'content__item'], textContent: 'Empty' })
+        const createdDayDom = createDomElement({ classList: ['item', 'content__item'], textContent: '+0 More' })
         createdDayDom.style.gridRowStart = String(eachNavbarItem + startRow)
         createdDayDom.style.gridColumnStart = String(eachDay + startCol)
         if (itemWidth) createdDayDom.style.width = `${itemWidth}px`
