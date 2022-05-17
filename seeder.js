@@ -25,7 +25,6 @@ export const seedGantt = ({
         content: []
     }
     for (let x = 0; x < navbarCount; x++) {
-        console.log("in")
         response.navbar.push({
             id: x,
             name: userNames[x]
