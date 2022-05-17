@@ -1,4 +1,5 @@
 interface CreateDivElement {
+  elementType?: string;
   classList?: string | string[];
   textContent?: string;
   bgColor?: string;
@@ -39,8 +40,8 @@ export const getMonthLastDay = (month: number): number => {
   return Number(dayAsString);
 };
 
-export const createDomElement = ({ classList, textContent, bgColor, width, height }: CreateDivElement): HTMLDivElement => {
-  const element = document.createElement('div')
+export const createDomElement = ({ elementType, classList, textContent, bgColor, width, height }: CreateDivElement): HTMLElement => {
+  const element = elementType ? document.createElement(elementType) : document.createElement('div')
   if (classList) Array.isArray(classList) ? element.classList.add(...classList) : element.classList.add(classList)
   if (textContent) element.textContent = textContent
   if (bgColor) element.style.backgroundColor = bgColor
