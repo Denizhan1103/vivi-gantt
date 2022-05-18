@@ -6,18 +6,54 @@ import {
 } from "./seeder.js"
 
 const container = document.querySelector(".container")
+const chart = document.querySelector("gantt-chart")
 
 const options = {
-    labelName: 'Label',
-    ganntType: 'Month', // Day - Month
-    currentTime: 3,
+    labelName: 'Labelss',
+    ganttType: 'Month', // Day - Month
+    currentTime: new Date(new Date().setMonth(new Date().getMonth() - 3)),
     data: seedGantt({
-        navbarCount: 12,
+        navbarCount: 50,
         contentCount: 50
     })
 }
 
-new Gantt({
-    target: container,
-    options
-})
+const style = {
+    headerColor: `red`,
+    headerStripes: {
+        active: true,
+        color: 'orange'
+    },
+    headerNth: {
+        active: true,
+        color: 'green',
+        stripes: true,
+        stripesColor: 'lightgreen'
+    },
+    labelColor: 'blue',
+    labelStripes: {
+        active: true,
+        color: 'lightblue'
+    },
+    buttons: {
+        first: {
+            color: '',
+            bgColor: ''
+        },
+        second: {
+            color: '',
+            bgColor: ''
+        },
+        thirt: {
+            color: '',
+            bgColor: ''
+        }
+    }
+}
+
+chart.items = options
+
+// new Gantt({
+//     target: container,
+//     options
+// })
