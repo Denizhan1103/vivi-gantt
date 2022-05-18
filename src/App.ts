@@ -7,8 +7,9 @@ interface GanttData {
 
 interface Options {
   labelName?: string;
-  ganttType: GanttType;
+  mode: GanttMode;
   currentTime: Date;
+  rowScrollRatio: number;
   data: RequestedState;
 }
 
@@ -17,7 +18,7 @@ interface RequestedState {
   content: { id: number, referenceId: number; name: string; date: { start: number; end: number; }; }[];
 }
 
-enum GanttType {
+enum GanttMode {
   month = 'Month',
   day = 'Day'
 }
@@ -29,7 +30,7 @@ interface GanttState {
 
 export class Gantt extends HTMLElement {
   state!: GanttState;
-  rowLength: number = 0;
+  rowCount: number = 0;
   options: any;
 
   constructor() {
@@ -43,110 +44,143 @@ export class Gantt extends HTMLElement {
 
   createDom = () => {
     this.state = this.createState(this.options.data)
-    this.innerHTML = this.createNode(this.options)
+    const containerNode = this.createNode(this.options)
+    this.appendChild(containerNode)
+    this.calcRowScrollRatio(containerNode, this.options.rowScrollRatio)
   }
 
   createState = (data: RequestedState): GanttState => {
-
     return data
   }
 
-  createNode = (data: Options): string => {
-    return `
-      <div class="gantt__container">
-        ${this.createBtnsNode()}
-        <div class="gantt__scroller">
-          <div class="gantt">
-            ${this.createHeaderNode(data.ganttType, data.currentTime, data.labelName)}
-            ${this.createContentNode()}
-            ${this.createLinesNode()}
-          </div>
-        </div>
-      </div>  
-    `
+  createNode = (data: Options): HTMLDivElement => {
+    // Create
+    const containerNode = this.createContainerNode()
+    const buttonsNode = this.createBtnsNode()
+    const headerNode = this.createHeaderNode(data.mode, data.currentTime, data.labelName)
+    const contentNode = this.createContentNode()
+    const linesNode = this.createLinesNode()
+    // Append
+    containerNode.appendChild(buttonsNode)
+    containerNode.childNodes[0].childNodes[0].appendChild(headerNode)
+    containerNode.childNodes[0].childNodes[0].appendChild(contentNode)
+    containerNode.childNodes[0].childNodes[0].appendChild(linesNode)
+    // Return
+    return containerNode
   }
 
-  createBtnsNode = (): string => {
-    return `
-      <div class="gantt__btns">
-        <div class="gantt__btn gantt__btn-up">&#94;</div>
-        <div class="gantt__btn">&lt;</div>
-        <div class="gantt__btn">&gt;</div>
-      </div>
-    `
+  calcRowScrollRatio = (containerNode: HTMLDivElement, rowScrollRatio: number): boolean => {
+    const calculatedLeftScroll = rowScrollRatio * 120
+    const scrollerNode = containerNode.children[0]
+    scrollerNode.scrollLeft = calculatedLeftScroll
+    return true
   }
 
-  createHeaderNode = (ganttType: GanttType, currentTime: Date, labelName?: string): string => {
-    const headerItems = this.createHeaderItemNodes(ganttType, currentTime)
-    return `
-      <div class="gantt__row gantt__header">
-        <div class="gantt__row-first gantt__row-item gantt__label">${labelName || 'Label'}</div>
-        <ul class="gantt__row-items gantt__row-header" style="grid-template-columns: repeat(${this.rowLength},120px);">
-           ${headerItems}
-        </ul>
-     </div>
-    `
+  createContainerNode = (): HTMLDivElement => {
+    // Create
+    const ganttContainer = createDomElement({ classList: 'gantt__container' }) as HTMLDivElement
+    const ganttScroller = createDomElement({ classList: 'gantt__scroller' }) as HTMLDivElement
+    const gantt = createDomElement({ classList: 'gantt' }) as HTMLDivElement
+    // Append
+    ganttContainer.appendChild(ganttScroller)
+    ganttContainer.childNodes[0].appendChild(gantt)
+    // Return
+    return ganttContainer
   }
 
-  createHeaderItemNodes = (ganttType: GanttType, currentTime: Date,) => {
-    let createdItems: string = ''
-    if (ganttType == GanttType.month) {
+  // Next Feature : Text content for buttons & dynamic button count
+  createBtnsNode = (): HTMLDivElement => {
+    const btnsContainer = createDomElement({ classList: 'gantt__btns' }) as HTMLDivElement
+    const textContent = ['<<', '>', '<']
+    for (let currentButton = 0; currentButton < 3; currentButton++) {
+      const createdButton = createDomElement({ classList: 'gantt__btn', textContent: textContent[currentButton] }) as HTMLDivElement
+      btnsContainer.appendChild(createdButton)
+    }
+    return btnsContainer
+  }
+
+  createHeaderNode = (mode: GanttMode, currentTime: Date, labelName?: string): HTMLDivElement => {
+    // Create
+    const ganttHeader = createDomElement({ classList: ['gantt__row', 'gantt__header'] }) as HTMLDivElement
+    const ganttLabel = createDomElement({ classList: ['gantt__row-first', 'gantt__row-item', 'gantt__label'], textContent: labelName || 'Label' })
+    const ganttHeaderItems = this.createHeaderItemNodes(mode, currentTime)
+    // Append
+    ganttHeader.appendChild(ganttLabel)
+    ganttHeader.appendChild(ganttLabel)
+    ganttHeader.appendChild(ganttHeaderItems)
+    // Return
+    return ganttHeader
+  }
+
+  // Next Step: Convert this function with bridge pattern
+  // Next Step: Add AM/PM time type support
+  createHeaderItemNodes = (mode: GanttMode, currentTime: Date): HTMLUListElement => {
+    // Create container node
+    const headerItemContainer = createDomElement({ elementType: 'ul', classList: 'gantt__row-items' }) as HTMLUListElement
+    // Create child nodes
+    if (mode == GanttMode.month) {
       const dayInCurrentMonth = getMonthLastDay(currentTime.getMonth())
       for (let x = 1; x <= dayInCurrentMonth; x++) {
-        createdItems += `<li class="gantt__row-item gantt__header-item">${x} ${convertDigitToMonth(currentTime.getMonth())} ${currentTime.getFullYear()}</li>`
+        const createdChildNode = createDomElement({ elementType: 'li', classList: ['gantt__row-item', 'gantt__header-item'], textContent: `${x} ${convertDigitToMonth(currentTime.getMonth())} ${currentTime.getFullYear()}` }) as HTMLLIElement
+        headerItemContainer.appendChild(createdChildNode)
       }
-      this.rowLength = dayInCurrentMonth
-      return createdItems
+      // TODO: fix it
+      this.rowCount = dayInCurrentMonth
     }
-    if (ganttType == GanttType.day) {
+    if (mode == GanttMode.day) {
       for (let x = 0; x < 24; x++) {
-        createdItems += `<li class="gantt__row-item gantt__header-item">${x}:00</li>`
+        const createdChildNode = createDomElement({ elementType: 'li', classList: ['gantt__row-item', 'gantt__header-item'], textContent: `${x}:00` }) as HTMLLIElement
+        headerItemContainer.appendChild(createdChildNode)
       }
-      this.rowLength = 24
-      return createdItems
+      // TODO: fix it
+      this.rowCount = 24
     }
+
+    // Append row length to container
+    headerItemContainer.style.gridTemplateColumns = `repeat(${this.rowCount},120px)`
+    // Return
+    return headerItemContainer
   }
 
-  createContentNode = () => {
-    return `
-      <div class="gantt__content" style="grid-template-rows: repeat(${this.state.navbar.length}, minmax(50px, max-content));">
-        ${this.createRowNodes()}
-      </div>
-    `
-  }
-
-  createRowNodes = () => {
-    let createdRows = ''
+  // TODO: look for better state
+  createContentNode = (): HTMLDivElement => {
+    const ganttContent = createDomElement({ classList: 'gantt__content' }) as HTMLDivElement
+    ganttContent.style.gridTemplateRows = `repeat(${this.state.navbar.length}, minmax(50px, max-content))`
     for (let row of this.state.navbar) {
-      let createdTasks = ''
+      const rowContainer = createDomElement({ classList: 'gantt__row' }) as HTMLDivElement
+      const firstItem = createDomElement({ classList: ['gantt__row-first', 'gantt__row-item'], textContent: row.name }) as HTMLDivElement
+      const rowItems = createDomElement({ elementType: 'ul', classList: 'gantt__row-items' }) as HTMLUListElement
+      rowItems.style.gridTemplateColumns = `epeat(${this.rowCount},120px)`
       for (let task of this.state.content) {
         if (task.referenceId == row.id) {
-          createdTasks += `<li class="gantt__task" style="grid-column: ${task.date.start} / span ${task.date.end - task.date.start};">${task.name}</li>`
+          const createdTask = createDomElement({ elementType: 'li', classList: 'gantt__task', textContent: task.name }) as HTMLLIElement
+          createdTask.style.gridColumn = `${task.date.start} / span ${task.date.end - task.date.start}`
+          rowItems.appendChild(createdTask)
         }
       }
-      createdRows += `
-      <div class="gantt__row">
-        <div class="gantt__row-first gantt__row-item">${row.name}</div>
-        <ul class="gantt__row-items" style="grid-template-columns: repeat(${this.rowLength},120px);">
-            ${createdTasks}
-        </ul>
-      </div>
-    `
+      rowContainer.appendChild(firstItem)
+      rowContainer.appendChild(rowItems)
+      ganttContent.appendChild(rowContainer)
     }
-    return createdRows
+    return ganttContent
   }
 
-  createLinesNode = () => {
-    let createdLines = ""
-    for (let x = 1; x < this.rowLength; x++) createdLines += '<div class="gantt__lines-item"></div>'
-    return `
-      <div class="gantt__row gantt__lines">
-        <div class="gantt__lines-navbar"></div>
-        <div class="gantt__lines-content" style="grid-template-columns: repeat(${this.rowLength}, 120px);">
-            ${createdLines}
-        </div>
-      </div>
-    `
+  createLinesNode = (): HTMLDivElement => {
+    // Create
+    const ganttLine = createDomElement({ classList: ['gantt__row', 'gantt__lines'] }) as HTMLDivElement
+    const ganttLineNavbar = createDomElement({ classList: 'gantt__lines-navbar' }) as HTMLDivElement
+    const ganttLineContent = createDomElement({ classList: 'gantt__lines-content' }) as HTMLDivElement
+    ganttLineContent.style.gridTemplateColumns = `repeat(${this.rowCount}, 120px)`
+    // Create line for per column
+    for (let x = 1; x < this.rowCount; x++) {
+      const ganttLineItem = createDomElement({ classList: 'gantt__lines-item' }) as HTMLDivElement
+      ganttLineContent.appendChild(ganttLineItem)
+    }
+    // Append 
+    ganttLine.appendChild(ganttLineNavbar)
+    ganttLine.appendChild(ganttLineContent)
+    // Return
+    return ganttLine
   }
 }
 

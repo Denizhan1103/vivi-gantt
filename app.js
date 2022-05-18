@@ -8,14 +8,30 @@ import {
 const container = document.querySelector(".container")
 const chart = document.querySelector("gantt-chart")
 
+const date = new Date(new Date().setMonth(new Date().getMonth() - 3))
 const options = {
     labelName: 'Labelss',
-    ganttType: 'Month', // Day - Month
-    currentTime: new Date(new Date().setMonth(new Date().getMonth() - 3)),
+    dateOnLabel: true,
+    mode: 'Day', // Day - Month,
+    currentTime: date,
+    rowScrollRatio: 2,
     data: seedGantt({
         navbarCount: 50,
         contentCount: 50
-    })
+    }),
+    buttonNames: ['1', '2', '3'],
+    style: {
+        button: {
+            color: 'black',
+            bgColor: 'red',
+            stripes: 'brown',
+            nth: {
+                active: true,
+                nthBgColor: 'yellow',
+                nthColor: 'black'
+            }
+        }
+    }
 }
 
 const style = {
