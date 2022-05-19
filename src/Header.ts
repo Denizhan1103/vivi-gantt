@@ -34,10 +34,15 @@ export default class Header {
     }
 
     private createHeaderNode = (): HTMLDivElement => {
+        // Time Calculate
+        const labelTime = this.mode == GanttMode.month ? 'Year ' + this.currentTime.getFullYear() : this.currentTime.getDay() + ' ' + convertDigitToMonth(this.currentTime.getMonth()) + ' ' + this.currentTime.getFullYear()
         // Create
         const headerNode = this.createParentNode()
         const headerNodeContent = `
-            <div id="headerRowFirst" class="gantt__row-first gantt__row-item gantt__label">${this.labelName || 'Label'}</div>
+            <div id="headerRowFirst" class="gantt__row-first gantt__row-item gantt__label">
+                <span>${this.labelName || 'Label'}</span>
+                <span class="gantt__label-time">${labelTime}</span>
+            </div>
             <ul id="headerRowItems" class="gantt__row-items">
             ${this.createHeaderItemNodes()}
             </ul>
@@ -121,6 +126,10 @@ export default class Header {
             .gantt__label {
                 background-color: #0a3444;
                 border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+            }
+
+            .gantt__label-time {
+                font-size: 12px;
             }
         `
         return headerNodeStyles

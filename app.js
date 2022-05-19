@@ -12,7 +12,7 @@ const date = new Date(new Date().setMonth(new Date().getMonth() - 3))
 const options = {
     labelName: 'Labelss',
     dateOnLabel: true,
-    mode: 'Month', // Day - Month,
+    mode: 'Day', // Day - Month,
     currentTime: date,
     rowScrollRatio: 0,
     data: seedGantt({
