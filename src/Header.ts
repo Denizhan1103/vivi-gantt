@@ -5,7 +5,6 @@ enum GanttMode {
     day = 'Day'
 }
 
-
 interface HeaderData {
     mode: GanttMode;
     currentTime: Date;
@@ -13,10 +12,10 @@ interface HeaderData {
 }
 
 export default class Header {
-    mode: GanttMode;
-    currentTime: Date;
-    labelName?: string;
-    createdDom: HTMLDivElement;
+    private mode: GanttMode;
+    private currentTime: Date;
+    private labelName?: string;
+    private createdDom: HTMLDivElement;
 
     // TODO: Provide - Inject
     constructor({ mode, currentTime, labelName }: HeaderData) {
@@ -26,11 +25,15 @@ export default class Header {
         this.createdDom = this.createHeaderNode()
     }
 
-    get getDom() {
+    public get getDom(): HTMLDivElement {
         return this.createdDom
     }
 
-    createHeaderNode = (): HTMLDivElement => {
+    private set getDom(newDom: HTMLDivElement) {
+        this.createdDom = newDom
+    }
+
+    private createHeaderNode = (): HTMLDivElement => {
         // Create
         const headerNode = this.createParentNode()
         const headerNodeContent = `
@@ -40,26 +43,26 @@ export default class Header {
             </ul>
         `
         // Append
-        headerNode.append(headerNodeContent)
+        headerNode.innerHTML = headerNodeContent
         headerNode.appendChild(this.appendHeaderNodeStyles())
         // Return
         return headerNode
     }
 
-    createParentNode = (): HTMLDivElement => {
+    private createParentNode = (): HTMLDivElement => {
         const ganttHeader = createDomElement({ elementType: 'div', classList: ['gantt__row', 'gantt__header'] }) as HTMLDivElement
         return ganttHeader
     }
 
     // Use bridge pattern
-    createHeaderItemNodes = (): string => {
+    private createHeaderItemNodes = (): string => {
         let headerItemNodes: string = ""
         if (this.mode == GanttMode.month) headerItemNodes = this.createMonthNode()
         if (this.mode == GanttMode.day) headerItemNodes = this.createDayNode()
         return headerItemNodes
     }
 
-    createMonthNode = (): string => {
+    private createMonthNode = (): string => {
         let createdNodes: string = ``
         const lastDayInCurrentMonth = getMonthLastDay(this.currentTime.getMonth())
         for (let currentDay = 1; currentDay <= lastDayInCurrentMonth; currentDay++) {
@@ -69,7 +72,7 @@ export default class Header {
     }
 
     // Add time types
-    createDayNode = (): string => {
+    private createDayNode = (): string => {
         let createdNodes: string = ``
         const hoursInDay = 24
         for (let currentHour = 0; currentHour < hoursInDay; currentHour++) {
@@ -79,13 +82,16 @@ export default class Header {
     }
 
     // Next Week
-    appendDifference = ({ mode, currentTime, labelName }: HeaderData) => {
-        this.mode = mode
-        this.currentTime = currentTime
-        this.labelName = labelName
+    private appendDifference = ({ mode, currentTime, labelName }: HeaderData) => {
+        if (mode !== this.mode || currentTime !== this.currentTime || labelName !== this.labelName) {
+            this.mode = mode
+            this.currentTime = currentTime
+            this.labelName = labelName
+            this.getDom = this.createHeaderNode()
+        }
     }
 
-    appendHeaderNodeStyles = (): HTMLStyleElement => {
+    private appendHeaderNodeStyles = (): HTMLStyleElement => {
         const headerNodeStyles = document.createElement('style')
         headerNodeStyles.textContent = `
             .gantt__header {

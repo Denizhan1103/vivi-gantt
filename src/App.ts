@@ -1,4 +1,5 @@
 import { createDomElement, convertDigitToMonth, getMonthLastDay, digitOneToTwo } from "./Helper.js";
+import Header from "./Header.js"
 
 interface GanttData {
   target: HTMLElement;
@@ -37,9 +38,11 @@ export class Gantt extends HTMLElement {
     super();
   }
 
-  set items(options: RequestedState) {
+  set items(options: Options) {
     this.options = options
-    this.createDom()
+    // this.createDom()
+    console.log(new Header(options).getDom)
+    this.appendChild(new Header(options).getDom)
   }
 
   createDom = () => {
