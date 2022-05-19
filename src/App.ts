@@ -150,7 +150,7 @@ export class Gantt extends HTMLElement {
       const rowContainer = createDomElement({ classList: 'gantt__row' }) as HTMLDivElement
       const firstItem = createDomElement({ classList: ['gantt__row-first', 'gantt__row-item'], textContent: row.name }) as HTMLDivElement
       const rowItems = createDomElement({ elementType: 'ul', classList: 'gantt__row-items' }) as HTMLUListElement
-      rowItems.style.gridTemplateColumns = `epeat(${this.rowCount},120px)`
+      rowItems.style.gridTemplateColumns = `repeat(${this.rowCount},120px)`
       for (let task of this.state.content) {
         if (task.referenceId == row.id) {
           const createdTask = createDomElement({ elementType: 'li', classList: 'gantt__task', textContent: task.name }) as HTMLLIElement

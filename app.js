@@ -14,7 +14,7 @@ const options = {
     dateOnLabel: true,
     mode: 'Day', // Day - Month,
     currentTime: date,
-    rowScrollRatio: 2,
+    rowScrollRatio: 0,
     data: seedGantt({
         navbarCount: 50,
         contentCount: 50
