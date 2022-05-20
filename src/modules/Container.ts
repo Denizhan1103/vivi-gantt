@@ -2,6 +2,7 @@ import { createDomElement, getMonthLastDay } from "../Helper.js";
 
 import Content from "./Content.js"
 import Header from "./Header.js"
+import Line from "./Line.js"
 
 interface Options {
     labelName?: string;
@@ -60,6 +61,7 @@ export default class Container {
         // State creation
         const headerNodeState: HeaderNodeState = { mode: this.options.mode, currentTime: this.options.currentTime, labelName: this.options.labelName, rowCount: this.rowCount }
         const contentNodeState: ContentNodeState = { rowCount: this.rowCount, state: this.options.data }
+        const lineNodeState: number = this.rowCount
         // Create
         const ganttContainer = createDomElement({ classList: 'gantt__container' }) as HTMLDivElement
         const ganttInner = `
@@ -68,6 +70,7 @@ export default class Container {
                 <div id="gantt" class="gantt">
                     ${new Header(headerNodeState).getDom.outerHTML}
                     ${new Content(contentNodeState).getDom.outerHTML}
+                    ${new Line(lineNodeState).getDom.outerHTML}
                 </div>
             </div>
         `

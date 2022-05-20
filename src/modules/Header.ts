@@ -38,7 +38,7 @@ export default class Header {
 
     private createHeaderNode = (): HTMLDivElement => {
         // Time Calculate
-        const labelTime = this.mode == GanttMode.month ? 'Year ' + this.currentTime.getFullYear() : this.currentTime.getDay() + ' ' + convertDigitToMonth(this.currentTime.getMonth()) + ' ' + this.currentTime.getFullYear()
+        const labelTime = this.mode == GanttMode.month ? 'Year ' + this.currentTime.getFullYear() : this.currentTime.getDate() + ' ' + convertDigitToMonth(this.currentTime.getMonth()) + ' ' + this.currentTime.getFullYear()
         // Create
         const headerNode = this.createParentNode()
         const headerNodeContent = `
