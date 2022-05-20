@@ -3,6 +3,7 @@ import { createDomElement, getMonthLastDay } from "../Helper.js";
 import Content from "./Content.js"
 import Header from "./Header.js"
 import Line from "./Line.js"
+import Button from "./Button.js"
 
 interface Options {
     labelName?: string;
@@ -62,10 +63,11 @@ export default class Container {
         const headerNodeState: HeaderNodeState = { mode: this.options.mode, currentTime: this.options.currentTime, labelName: this.options.labelName, rowCount: this.rowCount }
         const contentNodeState: ContentNodeState = { rowCount: this.rowCount, state: this.options.data }
         const lineNodeState: number = this.rowCount
+        const buttonNodeState: string[] = ['<<', '<', '>']
         // Create
         const ganttContainer = createDomElement({ classList: 'gantt__container' }) as HTMLDivElement
         const ganttInner = `
-            <!-- Btns Node -->
+            ${new Button(buttonNodeState).getDom.outerHTML}
             <div id="ganttScroller" class="gantt__scroller">
                 <div id="gantt" class="gantt">
                     ${new Header(headerNodeState).getDom.outerHTML}
