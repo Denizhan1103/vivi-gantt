@@ -13,10 +13,12 @@ interface GanttState {
 export default class Content {
     rowCount: number;
     state: GanttState;
+    getDom: HTMLDivElement;
 
     constructor({ rowCount, state }: ContentState) {
         this.rowCount = rowCount
         this.state = state
+        this.getDom = this.createContentNode()
     }
 
     createContentNode = (): HTMLDivElement => {
@@ -34,9 +36,9 @@ export default class Content {
         let contentItemNodes: string = ""
         for (let perRow of this.state.navbar) {
             contentItemNodes += `
-                <div id="ganttRoww${perRow.id}" class="gantt__row">
+                <div id="ganttRow${perRow.id}" class="gantt__row">
                     <div class="gantt__row-first gantt__row-item">${perRow.name}</div>
-                    <ul class="gantt__row-items" style="grid-template-columns=repeat(${this.rowCount},120px)">
+                    <ul class="gantt__row-items" style="grid-template-columns:repeat(${this.rowCount},120px)">
                         ${this.createRowTasks(perRow.id)}
                     </ul>
                 </div>
@@ -49,7 +51,7 @@ export default class Content {
         let contentItemTasks: string = ""
         for (let perTask of this.state.content) {
             if (perTask.referenceId == rowId) {
-                contentItemTasks += `<li id="task${perTask.id}" class="gantt__task" style="grid-column=${perTask.date.start} / span ${perTask.date.end - perTask.date.start}">${perTask.name}</li>`
+                contentItemTasks += `<li id="task${perTask.id}" class="gantt__task" style="grid-column:${perTask.date.start} / span ${perTask.date.end - perTask.date.start}">${perTask.name}</li>`
             }
         }
         return contentItemTasks

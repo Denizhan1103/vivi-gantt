@@ -9,18 +9,21 @@ interface HeaderData {
     mode: GanttMode;
     currentTime: Date;
     labelName?: string;
+    rowCount: number;
 }
 
 export default class Header {
     private mode: GanttMode;
     private currentTime: Date;
     private labelName?: string;
+    private rowCount: number;
     private createdDom: HTMLDivElement;
 
     // TODO: Provide - Inject
-    constructor({ mode, currentTime, labelName }: HeaderData) {
+    constructor({ mode, currentTime, labelName, rowCount }: HeaderData) {
         this.mode = mode
         this.currentTime = currentTime
+        this.rowCount = rowCount
         if (labelName) this.labelName = labelName
         this.createdDom = this.createHeaderNode()
     }
@@ -43,7 +46,7 @@ export default class Header {
                 <span>${this.labelName || 'Label'}</span>
                 <span class="gantt__label-time">${labelTime}</span>
             </div>
-            <ul id="headerRowItems" class="gantt__row-items">
+            <ul id="headerRowItems" class="gantt__row-items" style="grid-template-columns: repeat(${this.rowCount},120px)">
             ${this.createHeaderItemNodes()}
             </ul>
         `
@@ -69,8 +72,7 @@ export default class Header {
 
     private createMonthNode = (): string => {
         let createdNodes: string = ``
-        const lastDayInCurrentMonth = getMonthLastDay(this.currentTime.getMonth())
-        for (let currentDay = 1; currentDay <= lastDayInCurrentMonth; currentDay++) {
+        for (let currentDay = 1; currentDay <= this.rowCount; currentDay++) {
             createdNodes += `<li id="headerRowItem${currentDay}" class="gantt__row-item gantt__header-item">${currentDay} ${convertDigitToMonth(this.currentTime.getMonth())} ${this.currentTime.getFullYear()}</li>`
         }
         return createdNodes
@@ -79,8 +81,7 @@ export default class Header {
     // Add time types
     private createDayNode = (): string => {
         let createdNodes: string = ``
-        const hoursInDay = 24
-        for (let currentHour = 0; currentHour < hoursInDay; currentHour++) {
+        for (let currentHour = 0; currentHour < this.rowCount; currentHour++) {
             createdNodes += `<li id="headerRowItem${currentHour} class="gantt__row-item gantt__header-item">${currentHour}:00</li>`
         }
         return createdNodes

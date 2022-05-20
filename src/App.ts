@@ -1,5 +1,6 @@
 import { createDomElement, convertDigitToMonth, getMonthLastDay, digitOneToTwo } from "./Helper.js";
 import Header from "./Header.js"
+import Content from "./Content.js"
 
 interface GanttData {
   target: HTMLElement;
@@ -32,7 +33,7 @@ interface GanttState {
 export class Gantt extends HTMLElement {
   state!: GanttState;
   rowCount: number = 0;
-  options: any;
+  options?: Options;
 
   constructor() {
     super();
@@ -41,8 +42,11 @@ export class Gantt extends HTMLElement {
   set items(options: Options) {
     this.options = options
     // this.createDom()
-    console.log(new Header(options).getDom)
-    this.appendChild(new Header(options).getDom)
+    // console.log(new Header(options).getDom)
+    const rowCount = this.options.mode == GanttMode.day ? 24 : getMonthLastDay(this.options.currentTime.getMonth())
+    this.appendChild(new Header({ ...options, rowCount }).getDom)
+    // @ts-ignore
+    this.appendChild(new Content({ rowCount, state: this.options.data }).getDom)
   }
 
   createDom = () => {
