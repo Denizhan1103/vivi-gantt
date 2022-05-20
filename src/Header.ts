@@ -97,7 +97,7 @@ export default class Header {
     }
 
     private appendHeaderNodeStyles = (): HTMLStyleElement => {
-        const headerNodeStyles = document.createElement('style')
+        const headerNodeStyles = createDomElement({ elementType: 'style' }) as HTMLStyleElement
         headerNodeStyles.textContent = `
             .gantt__header {
                 color: #fff;
