@@ -1,4 +1,4 @@
-import { createDomElement, convertDigitToMonth, getMonthLastDay } from "./Helper.js";
+import { createDomElement, convertDigitToMonth, getMonthLastDay } from "../Helper.js";
 
 enum GanttMode {
     month = 'Month',
@@ -46,7 +46,7 @@ export default class Header {
                 <span>${this.labelName || 'Label'}</span>
                 <span class="gantt__label-time">${labelTime}</span>
             </div>
-            <ul id="headerRowItems" class="gantt__row-items" style="grid-template-columns: repeat(${this.rowCount},120px)">
+            <ul id="headerRowItems" class="gantt__row-items gantt__header-items" style="grid-template-columns: repeat(${this.rowCount},120px)">
             ${this.createHeaderItemNodes()}
             </ul>
         `
@@ -82,7 +82,7 @@ export default class Header {
     private createDayNode = (): string => {
         let createdNodes: string = ``
         for (let currentHour = 0; currentHour < this.rowCount; currentHour++) {
-            createdNodes += `<li id="headerRowItem${currentHour} class="gantt__row-item gantt__header-item">${currentHour}:00</li>`
+            createdNodes += `<li id="headerRowItem${currentHour}" class="gantt__row-item gantt__header-item">${currentHour}:00</li>`
         }
         return createdNodes
     }

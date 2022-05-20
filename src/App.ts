@@ -1,6 +1,8 @@
 import { createDomElement, convertDigitToMonth, getMonthLastDay, digitOneToTwo } from "./Helper.js";
-import Header from "./Header.js"
-import Content from "./Content.js"
+import Header from "./modules/Header.js"
+import Content from "./modules/Content.js"
+
+import Container from "./modules/Container.js"
 
 interface GanttData {
   target: HTMLElement;
@@ -43,11 +45,24 @@ export class Gantt extends HTMLElement {
     this.options = options
     // this.createDom()
     // console.log(new Header(options).getDom)
-    const rowCount = this.options.mode == GanttMode.day ? 24 : getMonthLastDay(this.options.currentTime.getMonth())
-    this.appendChild(new Header({ ...options, rowCount }).getDom)
-    // @ts-ignore
-    this.appendChild(new Content({ rowCount, state: this.options.data }).getDom)
+    // const rowCount = this.options.mode == GanttMode.day ? 24 : getMonthLastDay(this.options.currentTime.getMonth())
+    // this.appendChild(new Header({ ...options, rowCount }).getDom)
+    // // @ts-ignore
+    // this.appendChild(new Content({ rowCount, state: this.options.data }).getDom)
+    const gantt = new Container(options)
+    this.appendChild(gantt.getDom)
+    this.appendRowScrollRatio(gantt.rowScrollRatio)
   }
+
+  appendRowScrollRatio = (rowScrollRatio: number): boolean => {
+    const scrollerNode = this.querySelector('#ganttScroller')
+    if (scrollerNode) {
+      scrollerNode.scrollLeft = rowScrollRatio
+      return true
+    }
+    return false
+  }
+
 
   createDom = () => {
     this.state = this.createState(this.options.data)
