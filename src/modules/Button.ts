@@ -12,6 +12,7 @@ export default class Button {
     createButtonNode = (): HTMLDivElement => {
         // Create
         const buttonNode = createDomElement({ classList: 'gantt__btns' }) as HTMLDivElement
+        buttonNode.id = "ganttButtons"
         const buttonItems = this.createButtonItem()
         // Append
         buttonNode.innerHTML = buttonItems

@@ -14,7 +14,7 @@ const options = {
     dateOnLabel: true,
     mode: 'Day', // Day - Month,
     currentTime: date,
-    rowScrollRatio: 2,
+    rowScrollRatio: 6,
     data: seedGantt({
         navbarCount: 50,
         contentCount: 50
@@ -73,3 +73,10 @@ chart.items = options
 //     target: container,
 //     options
 // })
+
+
+window.addEventListener('buttonClickEvent', ({
+    detail
+}) => {
+    console.log(detail.index)
+})

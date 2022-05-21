@@ -3,6 +3,7 @@ import Header from "./modules/Header.js"
 import Content from "./modules/Content.js"
 
 import Container from "./modules/Container.js"
+import GanttEvent from "./utils/Event.js"
 
 interface GanttData {
   target: HTMLElement;
@@ -52,6 +53,7 @@ export class Gantt extends HTMLElement {
     const gantt = new Container(options)
     this.appendChild(gantt.getDom)
     this.appendRowScrollRatio(gantt.rowScrollRatio)
+    new GanttEvent(gantt.getDom)
   }
 
   appendRowScrollRatio = (rowScrollRatio: number): boolean => {
