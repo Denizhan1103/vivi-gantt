@@ -21,7 +21,7 @@ interface Options {
 
 interface RequestedState {
   navbar: { id: number; name: string; }[];
-  content: { id: number, referenceId: number; name: string; date: { start: number; end: number; }; }[];
+  content: { id: number, referenceId: number; name: string; bgColor?: string; date: { start: number; end: number; }; }[];
 }
 
 enum GanttMode {
@@ -31,7 +31,7 @@ enum GanttMode {
 
 interface GanttState {
   navbar: { id: number; name: string }[];
-  content: { id: number, referenceId: number; name: string; date: { start: number; end: number; }; }[];
+  content: { id: number, referenceId: number; name: string; bgColor?: string; date: { start: number; end: number; }; }[];
 }
 
 export class Gantt extends HTMLElement {

@@ -22,14 +22,25 @@ const options = {
             name: 'Denizhan'
         }],
         content: [{
-            id: 1,
-            referenceId: 1,
-            name: 'Task1',
-            date: {
-                start: 1.17,
-                end: 3.28
+                id: 1,
+                referenceId: 1,
+                name: 'Task1',
+                date: {
+                    start: 1.17,
+                    end: 3.28
+                }
+            },
+            {
+                id: 2,
+                referenceId: 1,
+                name: 'Task2',
+                bgColor: 'lightblue',
+                date: {
+                    start: 1.37,
+                    end: 3.50
+                }
             }
-        }]
+        ]
     },
     buttonNames: ['1', '2', '3'],
     style: {
