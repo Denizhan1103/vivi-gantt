@@ -2,6 +2,7 @@ import { createDomElement, convertDigitToMonth, getMonthLastDay } from "../Helpe
 
 interface ContentState {
     rowCount: number;
+    perColPiece?: number;
     state: GanttState;
 }
 
@@ -12,11 +13,13 @@ interface GanttState {
 
 export default class Content {
     rowCount: number;
+    perColPiece: number;
     state: GanttState;
     getDom: HTMLDivElement;
 
-    constructor({ rowCount, state }: ContentState) {
+    constructor({ rowCount, perColPiece, state }: ContentState) {
         this.rowCount = rowCount
+        this.perColPiece = perColPiece || 1
         this.state = state
         this.getDom = this.createContentNode()
     }
@@ -38,7 +41,7 @@ export default class Content {
             contentItemNodes += `
                 <div id="ganttRow${perRow.id}" class="gantt__row">
                     <div class="gantt__row-first gantt__row-item">${perRow.name}</div>
-                    <ul class="gantt__row-items" style="grid-template-columns:repeat(${this.rowCount},120px)">
+                    <ul class="gantt__row-items" style="grid-template-columns:repeat(${this.rowCount * this.perColPiece},${120 / this.perColPiece}px)">
                         ${this.createRowTasks(perRow.id)}
                     </ul>
                 </div>
@@ -51,7 +54,10 @@ export default class Content {
         let contentItemTasks: string = ""
         for (let perTask of this.state.content) {
             if (perTask.referenceId == rowId) {
-                contentItemTasks += `<li id="task${perTask.id}" class="gantt__task" style="grid-column:${perTask.date.start} / span ${perTask.date.end - perTask.date.start}">${perTask.name}</li>`
+                // TODO: fix columnStart & columnEnd ninja code
+                const columnStart = ((Number(perTask.date.start.toFixed()) * this.perColPiece) + 1) + (Math.round((Number(String(perTask.date.start).split('.')[1]) / 60) * this.perColPiece) || 0)
+                const columnEnd = ((Number(perTask.date.end.toFixed()) * this.perColPiece) + 1) + (Math.round((Number(String(perTask.date.end).split('.')[1]) / 60) * this.perColPiece) || 0)
+                contentItemTasks += `<li id="task${perTask.id}" class="gantt__task" style="grid-column:${columnStart} / span ${columnEnd - columnStart}">${perTask.name}</li>`
             }
         }
         return contentItemTasks

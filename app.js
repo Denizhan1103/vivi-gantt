@@ -14,11 +14,23 @@ const options = {
     dateOnLabel: true,
     mode: 'Day', // Day - Month,
     currentTime: date,
-    rowScrollRatio: 6,
-    data: seedGantt({
-        navbarCount: 50,
-        contentCount: 50
-    }),
+    rowScrollRatio: 1,
+    perColPiece: 4,
+    data: {
+        navbar: [{
+            id: 1,
+            name: 'Denizhan'
+        }],
+        content: [{
+            id: 1,
+            referenceId: 1,
+            name: 'Task1',
+            date: {
+                start: 1.17,
+                end: 3.28
+            }
+        }]
+    },
     buttonNames: ['1', '2', '3'],
     style: {
         button: {

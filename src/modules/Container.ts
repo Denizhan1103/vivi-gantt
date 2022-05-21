@@ -10,6 +10,7 @@ interface Options {
     mode: GanttMode;
     currentTime: Date;
     rowScrollRatio: number;
+    perColPiece?: number;
     data: GanttState;
 }
 
@@ -22,6 +23,7 @@ interface HeaderNodeState {
 
 interface ContentNodeState {
     rowCount: number;
+    perColPiece?: number;
     state: GanttState;
 }
 
@@ -61,7 +63,7 @@ export default class Container {
     createContainerNode = (): HTMLDivElement => {
         // State creation
         const headerNodeState: HeaderNodeState = { mode: this.options.mode, currentTime: this.options.currentTime, labelName: this.options.labelName, rowCount: this.rowCount }
-        const contentNodeState: ContentNodeState = { rowCount: this.rowCount, state: this.options.data }
+        const contentNodeState: ContentNodeState = { rowCount: this.rowCount, perColPiece: this.options.perColPiece, state: this.options.data }
         const lineNodeState: number = this.rowCount
         const buttonNodeState: string[] = ['<<', '<', '>']
         // Create

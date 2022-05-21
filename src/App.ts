@@ -15,6 +15,7 @@ interface Options {
   mode: GanttMode;
   currentTime: Date;
   rowScrollRatio: number;
+  perColPiece?: number;
   data: RequestedState;
 }
 

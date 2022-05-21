@@ -41,6 +41,7 @@ export const seedGantt = ({
             }
         })
     }
+    console.log(response)
     return response
 }
 
