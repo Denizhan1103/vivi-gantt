@@ -72,10 +72,6 @@ body {
     z-index: 299;
 }
 
-.gantt__header-items {
-  padding: 0 !important;
-}
-
 .gantt__header-item {
     transition: 0.2s ease background-color;
     cursor: pointer;
