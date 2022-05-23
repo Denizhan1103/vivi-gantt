@@ -55,8 +55,9 @@ export default class Content {
         for (let perTask of this.state.content) {
             if (perTask.referenceId == rowId) {
                 // TODO: fix columnStart & columnEnd ninja code
-                const columnStart = ((Number(perTask.date.start.toFixed()) * this.perColPiece) + 1) + (Math.round((Number(String(perTask.date.start).split('.')[1]) / 60) * this.perColPiece) || 0)
-                const columnEnd = ((Number(perTask.date.end.toFixed()) * this.perColPiece) + 1) + (Math.round((Number(String(perTask.date.end).split('.')[1]) / 60) * this.perColPiece) || 0)
+                // 60 yazan yer month view de patlayacak. containerden mode parametresini buraya indir
+                const columnStart = ((Number(perTask.date.start.toFixed()) * this.perColPiece) + (this.rowCount == 24 ? 1 : 0)) + (Math.round((Number(String(perTask.date.start).split('.')[1]) / (this.rowCount == 24 ? 60 : this.rowCount)) * this.perColPiece) || 0)
+                const columnEnd = ((Number(perTask.date.end.toFixed()) * this.perColPiece) + (this.rowCount == 24 ? 1 : 0)) + (Math.round((Number(String(perTask.date.end).split('.')[1]) / (this.rowCount == 24 ? 60 : this.rowCount)) * this.perColPiece) || 0)
                 contentItemTasks += `<li id="task${perTask.id}" class="gantt__task" style="grid-column:${columnStart} / span ${columnEnd - columnStart}; background-color:${perTask.bgColor || '#ff6252'};">${perTask.name}</li>`
             }
         }

@@ -26,7 +26,7 @@ const options = {
                 referenceId: 1,
                 name: 'Task1',
                 date: {
-                    start: 1.17,
+                    start: 1.12,
                     end: 3.28
                 }
             },
