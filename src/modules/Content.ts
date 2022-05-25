@@ -66,7 +66,6 @@ export default class Content {
         return contentItemNodes
     }
 
-    // Ready for test
     createRowTasks = (rowId: number): string => {
         let contentItemTasks: string = ""
         for (let perTask of this.state.content) {
@@ -85,9 +84,7 @@ export default class Content {
         return contentItemTasks
     }
 
-    // Ready for test
     appendTaskColor = (taskNode: HTMLLIElement, taskData: GanttContent): HTMLLIElement => {
-        const createdStyleNode = createDomElement({ elementType: 'style' }) as HTMLStyleElement
         // Append Bg Color
         if (taskData.bgClass) taskNode.classList.add(`task__bg-${taskData.bgClass}`)
         else taskNode.style.backgroundColor = taskData.bgColor ? taskData.bgColor : '#ff6252'

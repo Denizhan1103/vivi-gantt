@@ -16,8 +16,24 @@ enum GanttMode {
 }
 
 interface GanttState {
-  navbar: { id: number; name: string }[];
-  content: { id: number, referenceId: number; name: string; bgColor?: string; date: { start: number; end: number; }; }[];
+  navbar: GanttNavbar[];
+  content: GanttContent[];
+}
+
+interface GanttNavbar {
+  id: number;
+  name: string;
+}
+
+interface GanttContent {
+  id: number,
+  referenceId: number;
+  name: string;
+  bgColor?: string;
+  bgClass?: string;
+  color?: string;
+  colorClass?: string;
+  date: { start: number; end: number; };
 }
 
 export class Gantt {
