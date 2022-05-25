@@ -6,7 +6,6 @@ import {
 } from "./seeder.js"
 
 const container = document.querySelector(".container")
-const chart = document.querySelector("gantt-chart")
 
 const date = new Date(new Date().setMonth(new Date().getMonth() - 3))
 const options = {
@@ -57,49 +56,11 @@ const options = {
     }
 }
 
-const style = {
-    headerColor: `red`,
-    headerStripes: {
-        active: true,
-        color: 'orange'
-    },
-    headerNth: {
-        active: true,
-        color: 'green',
-        stripes: true,
-        stripesColor: 'lightgreen'
-    },
-    labelColor: 'blue',
-    labelStripes: {
-        active: true,
-        color: 'lightblue'
-    },
-    buttons: {
-        first: {
-            color: '',
-            bgColor: ''
-        },
-        second: {
-            color: '',
-            bgColor: ''
-        },
-        thirt: {
-            color: '',
-            bgColor: ''
-        }
-    }
-}
-
-chart.items = options
-
-// new Gantt({
-//     target: container,
-//     options
-// })
-
 
 window.addEventListener('buttonClickEvent', ({
     detail
 }) => {
     console.log(detail.index)
 })
+
+new Gantt(container, options)
