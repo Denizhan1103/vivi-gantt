@@ -1,57 +1,10 @@
 import { createDomElement, getMonthLastDay } from "../Helper.js";
+import { Options, HeaderNodeState, ContentNodeState, GanttMode } from "../utils/Interface.js"
 
 import Content from "./Content.js"
 import Header from "./Header.js"
 import Line from "./Line.js"
 import Button from "./Button.js"
-
-interface Options {
-    labelName?: string;
-    mode: GanttMode;
-    currentTime: Date;
-    rowScrollRatio: number;
-    perColPiece?: number;
-    data: GanttState;
-}
-
-interface HeaderNodeState {
-    mode: GanttMode;
-    currentTime: Date;
-    labelName?: string;
-    rowCount: number;
-}
-
-interface ContentNodeState {
-    rowCount: number;
-    perColPiece?: number;
-    state: GanttState;
-}
-
-enum GanttMode {
-    month = 'Month',
-    day = 'Day'
-}
-
-interface GanttState {
-    navbar: GanttNavbar[];
-    content: GanttContent[];
-}
-
-interface GanttNavbar {
-    id: number;
-    name: string;
-}
-
-interface GanttContent {
-    id: number,
-    referenceId: number;
-    name: string;
-    bgColor?: string;
-    bgClass?: string;
-    color?: string;
-    colorClass?: string;
-    date: { start: number; end: number; };
-}
 
 export default class Container {
     options: Options;

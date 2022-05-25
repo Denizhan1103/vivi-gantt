@@ -1,31 +1,5 @@
 import { createDomElement, convertDigitToMonth, getMonthLastDay } from "../Helper.js";
-
-interface ContentState {
-    rowCount: number;
-    perColPiece?: number;
-    state: GanttState;
-}
-
-interface GanttState {
-    navbar: GanttNavbar[];
-    content: GanttContent[];
-}
-
-interface GanttNavbar {
-    id: number;
-    name: string;
-}
-
-interface GanttContent {
-    id: number,
-    referenceId: number;
-    name: string;
-    bgColor?: string;
-    bgClass?: string;
-    color?: string;
-    colorClass?: string;
-    date: { start: number; end: number; };
-}
+import { ContentNodeState, GanttState, GanttNavbar, GanttContent } from "../utils/Interface.js"
 
 export default class Content {
     rowCount: number;
@@ -33,7 +7,7 @@ export default class Content {
     state: GanttState;
     getDom: HTMLDivElement;
 
-    constructor({ rowCount, perColPiece, state }: ContentState) {
+    constructor({ rowCount, perColPiece, state }: ContentNodeState) {
         this.rowCount = rowCount
         this.perColPiece = perColPiece || 1
         this.state = state

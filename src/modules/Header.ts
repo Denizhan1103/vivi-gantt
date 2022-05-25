@@ -1,16 +1,5 @@
 import { createDomElement, convertDigitToMonth, getMonthLastDay } from "../Helper.js";
-
-enum GanttMode {
-    month = 'Month',
-    day = 'Day'
-}
-
-interface HeaderData {
-    mode: GanttMode;
-    currentTime: Date;
-    labelName?: string;
-    rowCount: number;
-}
+import { GanttMode, HeaderNodeState } from "../utils/Interface.js"
 
 export default class Header {
     private mode: GanttMode;
@@ -20,7 +9,7 @@ export default class Header {
     private createdDom: HTMLDivElement;
 
     // TODO: Provide - Inject
-    constructor({ mode, currentTime, labelName, rowCount }: HeaderData) {
+    constructor({ mode, currentTime, labelName, rowCount }: HeaderNodeState) {
         this.mode = mode
         this.currentTime = currentTime
         this.rowCount = rowCount
@@ -88,7 +77,7 @@ export default class Header {
     }
 
     // Next Week
-    private appendDifference = ({ mode, currentTime, labelName }: HeaderData) => {
+    private appendDifference = ({ mode, currentTime, labelName }: HeaderNodeState) => {
         if (mode !== this.mode || currentTime !== this.currentTime || labelName !== this.labelName) {
             this.mode = mode
             this.currentTime = currentTime
