@@ -33,7 +33,9 @@ const options = {
                 id: 2,
                 referenceId: 1,
                 name: 'Task2',
+                bgClass: 'secondary',
                 bgColor: 'lightblue',
+                color: 'black',
                 date: {
                     start: 1.37,
                     end: 3.50

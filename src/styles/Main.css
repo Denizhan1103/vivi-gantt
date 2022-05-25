@@ -228,3 +228,45 @@ body {
     transform: scaleX(1.5);
     padding-top: 4px;
 }
+
+/* Custom gantt color classes camed from backend */
+
+.task__bg-primary {
+    background-color: #c23b2c;
+}
+
+.task__bg-secondary {
+    background-color: #c22ca2;
+}
+
+.task__bg-danger {
+    background-color: #8bc22c;
+}
+
+.tash__bg-warn {
+    background-color: #2c86c2;
+}
+
+.task__bg-important {
+    background-color: #8ec22c;
+}
+
+.task__cl-primary {
+    background-color: #c23b2c;
+}
+
+.task__cl-secondary {
+    background-color: #c22ca2;
+}
+
+.task__cl-danger {
+    background-color: #8bc22c;
+}
+
+.task__cl-warn {
+    background-color: #2c86c2;
+}
+
+.task__cl-important {
+    background-color: #8ec22c;
+}

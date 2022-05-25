@@ -7,8 +7,24 @@ interface ContentState {
 }
 
 interface GanttState {
-    navbar: { id: number; name: string }[];
-    content: { id: number, referenceId: number; name: string; bgColor?: string; date: { start: number; end: number; }; }[];
+    navbar: GanttNavbar[];
+    content: GanttContent[];
+}
+
+interface GanttNavbar {
+    id: number;
+    name: string;
+}
+
+interface GanttContent {
+    id: number,
+    referenceId: number;
+    name: string;
+    bgColor?: string;
+    bgClass?: string;
+    color?: string;
+    colorClass?: string;
+    date: { start: number; end: number; };
 }
 
 export default class Content {
@@ -50,6 +66,7 @@ export default class Content {
         return contentItemNodes
     }
 
+    // Ready for test
     createRowTasks = (rowId: number): string => {
         let contentItemTasks: string = ""
         for (let perTask of this.state.content) {
@@ -58,10 +75,27 @@ export default class Content {
                 // 60 yazan yer month view de patlayacak. containerden mode parametresini buraya indir
                 const columnStart = ((Number(perTask.date.start.toFixed()) * this.perColPiece) + (this.rowCount == 24 ? 1 : 0)) + (Math.round((Number(String(perTask.date.start).split('.')[1]) / (this.rowCount == 24 ? 60 : this.rowCount)) * this.perColPiece) || 0)
                 const columnEnd = ((Number(perTask.date.end.toFixed()) * this.perColPiece) + (this.rowCount == 24 ? 1 : 0)) + (Math.round((Number(String(perTask.date.end).split('.')[1]) / (this.rowCount == 24 ? 60 : this.rowCount)) * this.perColPiece) || 0)
-                contentItemTasks += `<li id="task${perTask.id}" class="gantt__task" style="grid-column:${columnStart} / span ${columnEnd - columnStart}; background-color:${perTask.bgColor || '#ff6252'};">${perTask.name}</li>`
+                let currentTask = createDomElement({ elementType: 'li', classList: 'gantt__task', textContent: perTask.name }) as HTMLLIElement
+                currentTask.style.gridColumn = `${columnStart} / span ${columnEnd - columnStart}`
+                // Appending style
+                currentTask = this.appendTaskColor(currentTask, perTask)
+                contentItemTasks += currentTask.outerHTML
             }
         }
         return contentItemTasks
+    }
+
+    // Ready for test
+    appendTaskColor = (taskNode: HTMLLIElement, taskData: GanttContent): HTMLLIElement => {
+        const createdStyleNode = createDomElement({ elementType: 'style' }) as HTMLStyleElement
+        // Append Bg Color
+        if (taskData.bgClass) taskNode.classList.add(`task__bg-${taskData.bgClass}`)
+        else taskNode.style.backgroundColor = taskData.bgColor ? taskData.bgColor : '#ff6252'
+        // Append Color
+        if (taskData.colorClass) taskNode.classList.add(`task__cl-${taskData.colorClass}`)
+        else taskNode.style.color = taskData.color ? taskData.color : '#ffffff'
+        // Return
+        return taskNode
     }
 
     appendContentStyle = (): HTMLStyleElement => {
