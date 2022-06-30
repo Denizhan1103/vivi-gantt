@@ -1,45 +1,7 @@
 import Container from "./modules/Container.js"
 import GanttEvent from "./utils/Event.js"
 
-interface Options {
-  labelName?: string;
-  mode: GanttMode;
-  currentTime: Date;
-  rowScrollRatio: number;
-  perColPiece?: number;
-  data: GanttState;
-  messages?: Messages;
-}
-
-interface Messages {
-  noItem: string;
-}
-
-enum GanttMode {
-  month = 'Month',
-  day = 'Day'
-}
-
-interface GanttState {
-  navbar: GanttNavbar[];
-  content: GanttContent[];
-}
-
-interface GanttNavbar {
-  id: number;
-  name: string;
-}
-
-interface GanttContent {
-  id: number,
-  referenceId: number;
-  name: string;
-  bgColor?: string;
-  bgClass?: string;
-  color?: string;
-  colorClass?: string;
-  date: { start: number; end: number; };
-}
+import type { Options, GanttState } from "./utils/Interface.js"
 
 export class Gantt {
   state!: GanttState;
