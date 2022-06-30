@@ -36,6 +36,18 @@ body {
     border-radius: 6px 0 6px 6px;
 }
 
+.gantt__noitem {
+    height: 120px;
+    position: sticky;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    color: #0a3444;
+}
+
 * {
     scroll-behavior: smooth;
 }

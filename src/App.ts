@@ -8,6 +8,11 @@ interface Options {
   rowScrollRatio: number;
   perColPiece?: number;
   data: GanttState;
+  messages?: Messages;
+}
+
+interface Messages {
+  noItem: string;
 }
 
 enum GanttMode {
