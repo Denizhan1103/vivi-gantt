@@ -48,6 +48,9 @@ export default class Content {
                 const { columnStart, columnEnd } = this.rowCount == 24 ? this.calcDayRow(perTask) : this.calcMonthRow(perTask)
 
                 let currentTask = createDomElement({ elementType: 'li', classList: 'gantt__task', textContent: perTask.name }) as HTMLLIElement
+                currentTask.id = String(perTask.id)
+                currentTask.setAttribute('ref', String(perTask.referenceId))
+
                 currentTask.style.gridColumn = `${columnStart} / span ${columnEnd - columnStart}`
                 // Appending style
                 currentTask = this.appendTaskColor(currentTask, perTask)
@@ -60,11 +63,9 @@ export default class Content {
     calcMonthRow = (perTask: GanttContent) => {
         const startMain = Number(perTask.date.start.split('.')[0])
         const endMain = Number(perTask.date.end.split('.')[0])
-        console.log(startMain, endMain)
 
         const columnStart = (((startMain * this.perColPiece) + 1) - this.perColPiece)
         const columnEnd = ((endMain * this.perColPiece) + 1)
-        console.log(columnStart, columnEnd)
 
         return { columnStart, columnEnd }
     }

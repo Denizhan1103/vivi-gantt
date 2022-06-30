@@ -9,8 +9,10 @@ export default class GanttEvent {
     appendEvents = (): boolean => {
         // Get nodes
         const buttonContainerNode = this.contentNode.querySelector('#ganttButtons') as HTMLDivElement
+        const allTasks = document.querySelectorAll('.gantt__task')
         // Add listeners
         this.appendEventToButton(buttonContainerNode)
+        this.appendEventToTasks(allTasks)
         // Return
         return true
     }
@@ -24,13 +26,23 @@ export default class GanttEvent {
 
     buttonCustomEvent = (buttonIndex: number) => {
         // Todo: fix
-        const buttonClickEvent = new CustomEvent('buttonClickEvent', { 'detail': { index: buttonIndex } })
+        const buttonClickEvent = new CustomEvent('onButtonClick', { 'detail': { index: buttonIndex } })
         window.dispatchEvent(buttonClickEvent)
     }
 
-    // appendEventToContent = (): boolean => {
+    appendEventToTasks = (allTasks: any) => {
+        if (allTasks.length > 0) {
+            allTasks.forEach((perTask: any) => {
+                const [id, ref] = [Number(perTask.id), Number(perTask.getAttributes('ref'))]
+                perTask.addEventListener('click', () => this.taskCustomEvent({ id, ref }))
+            })
+        }
+    }
 
-    // }
+    taskCustomEvent = ({ id, ref }: { id: number; ref: number }) => {
+        const taskClickEvent = new CustomEvent('onTaskClick', { detail: { id, ref } })
+        window.dispatchEvent(taskClickEvent)
+    }
 
     // appendEventToLabel = (): boolean => {
 
