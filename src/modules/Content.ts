@@ -44,10 +44,9 @@ export default class Content {
         let contentItemTasks: string = ""
         for (let perTask of this.state.content) {
             if (perTask.referenceId == rowId) {
-                // TODO: fix columnStart & columnEnd ninja code
-                // 60 yazan yer month view de patlayacak. containerden mode parametresini buraya indir
-                const columnStart = ((Number(perTask.date.start.toFixed()) * this.perColPiece) + (this.rowCount == 24 ? 1 : 0)) + (Math.round((Number(String(perTask.date.start).split('.')[1]) / (this.rowCount == 24 ? 60 : this.rowCount)) * this.perColPiece) || 0)
-                const columnEnd = ((Number(perTask.date.end.toFixed()) * this.perColPiece) + (this.rowCount == 24 ? 1 : 0)) + (Math.round((Number(String(perTask.date.end).split('.')[1]) / (this.rowCount == 24 ? 60 : this.rowCount)) * this.perColPiece) || 0)
+
+                const { columnStart, columnEnd } = this.rowCount == 24 ? this.calcDayRow(perTask) : this.calcMonthRow(perTask)
+
                 let currentTask = createDomElement({ elementType: 'li', classList: 'gantt__task', textContent: perTask.name }) as HTMLLIElement
                 currentTask.style.gridColumn = `${columnStart} / span ${columnEnd - columnStart}`
                 // Appending style
@@ -56,6 +55,30 @@ export default class Content {
             }
         }
         return contentItemTasks
+    }
+
+    calcMonthRow = (perTask: GanttContent) => {
+        const startMain = Number(perTask.date.start.split('.')[0])
+        const endMain = Number(perTask.date.end.split('.')[0])
+        console.log(startMain, endMain)
+
+        const columnStart = (((startMain * this.perColPiece) + 1) - this.perColPiece)
+        const columnEnd = ((endMain * this.perColPiece) + 1)
+        console.log(columnStart, columnEnd)
+
+        return { columnStart, columnEnd }
+    }
+
+    calcDayRow = (perTask: GanttContent) => {
+        const minutePerHour = 60
+
+        const [startMain, startSub] = perTask.date.start.split('.').map((v: string) => Number(v))
+        const [endMain, endSub] = perTask.date.end.split('.').map((v: string) => Number(v))
+
+        const columnStart = ((startMain * this.perColPiece) + 1) + (Math.round((startSub / minutePerHour) * this.perColPiece) || 0)
+        const columnEnd = ((endMain * this.perColPiece) + 1) + (Math.round((endSub / minutePerHour) * this.perColPiece) || 0)
+
+        return { columnStart, columnEnd }
     }
 
     appendTaskColor = (taskNode: HTMLLIElement, taskData: GanttContent): HTMLLIElement => {

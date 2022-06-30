@@ -30,7 +30,7 @@ export interface GanttContent {
     bgClass?: string;
     color?: string;
     colorClass?: string;
-    date: { start: number; end: number; };
+    date: { start: string; end: string; };
 }
 
 export interface HeaderNodeState {

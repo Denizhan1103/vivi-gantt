@@ -11,7 +11,7 @@ const date = new Date(new Date().setMonth(new Date().getMonth() - 3))
 const options = {
     labelName: 'Labelss',
     dateOnLabel: true,
-    mode: 'Day', // Day - Month,
+    mode: 'Month', // Day - Month,
     currentTime: date,
     rowScrollRatio: 1,
     perColPiece: 4,
@@ -25,8 +25,8 @@ const options = {
                 referenceId: 1,
                 name: 'Task1',
                 date: {
-                    start: 1.12,
-                    end: 3.28
+                    start: '1.10',
+                    end: '3.40'
                 }
             },
             {
@@ -37,8 +37,8 @@ const options = {
                 bgColor: 'lightblue',
                 color: 'black',
                 date: {
-                    start: 1.37,
-                    end: 3.50
+                    start: '2.37',
+                    end: '5.57'
                 }
             }
         ]
