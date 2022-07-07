@@ -4,6 +4,7 @@ export interface Options {
     currentTime: Date;
     rowScrollRatio: number;
     perColPiece?: number;
+    buttonsVisible?: boolean;
     data: GanttState;
     messages?: Messages;
 }
