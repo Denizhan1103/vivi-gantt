@@ -15,6 +15,7 @@ const options = {
     currentTime: date,
     rowScrollRatio: 1,
     perColPiece: 4,
+    buttonsVisible: true,
     data: {
         navbar: [{
             id: 1,

@@ -38,7 +38,7 @@ export default class Container {
         // Create
         const ganttContainer = createDomElement({ classList: 'gantt__container' }) as HTMLDivElement
         const ganttInner = `
-            ${new Button(buttonNodeState).getDom.outerHTML}
+            ${this.options.buttonsVisible == false ? '' : new Button(buttonNodeState).getDom.outerHTML}
             <div id="ganttScroller" class="gantt__scroller">
                 <div id="gantt" class="gantt">
                     ${new Header(headerNodeState).getDom.outerHTML}

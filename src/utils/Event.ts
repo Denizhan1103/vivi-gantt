@@ -18,8 +18,10 @@ export default class GanttEvent {
     }
 
     appendEventToButton = (buttonContainerNode: HTMLDivElement): boolean => {
-        for (let buttonIndex = 0; buttonIndex < buttonContainerNode.childNodes.length; buttonIndex++) {
-            buttonContainerNode.childNodes[buttonIndex].addEventListener('click', () => this.buttonCustomEvent(buttonIndex))
+        if (buttonContainerNode) {
+            for (let buttonIndex = 0; buttonIndex < buttonContainerNode.childNodes.length; buttonIndex++) {
+                buttonContainerNode.childNodes[buttonIndex].addEventListener('click', () => this.buttonCustomEvent(buttonIndex))
+            }
         }
         return true
     }
@@ -33,7 +35,7 @@ export default class GanttEvent {
     appendEventToTasks = (allTasks: any) => {
         if (allTasks.length > 0) {
             allTasks.forEach((perTask: any) => {
-                const [id, ref] = [Number(perTask.id), Number(perTask.getAttributes('ref'))]
+                const [id, ref] = [Number(perTask.id), Number(perTask.getAttribute('ref'))]
                 perTask.addEventListener('click', () => this.taskCustomEvent({ id, ref }))
             })
         }
