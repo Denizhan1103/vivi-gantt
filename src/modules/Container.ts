@@ -42,10 +42,10 @@ export default class Container {
             <div id="ganttScroller" class="gantt__scroller">
                 <div id="gantt" class="gantt">
                     ${new Header(headerNodeState).getDom.outerHTML}
-                    ${this.options.data.content.length > 1 ? new Content(contentNodeState).getDom.outerHTML : ''}
+                    ${this.options.data.content.length > 0 ? new Content(contentNodeState).getDom.outerHTML : ''}
                     ${new Line(lineNodeState).getDom.outerHTML}
                 </div>
-                ${this.options.data.content.length < 1 ? `<div class="gantt__noitem">${this.options.messages?.noItem || 'No Item'}</div>` : ''}
+                ${this.options.data.content.length == 0 ? `<div class="gantt__noitem">${this.options.messages?.noItem || 'No Item'}</div>` : ''}
             </div>
         `
         ganttContainer.innerHTML = ganttInner
